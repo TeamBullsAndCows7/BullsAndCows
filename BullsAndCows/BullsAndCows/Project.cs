@@ -24,7 +24,7 @@
                               "to cheat and 'exit' to quit the game.");
         }
 
-        static bool proverka(string num)
+        static bool checkIfNumConsistsOnlyOfDigits(string num)
         {
             int count = 0;
             for (int i = 0; i < 4; i++)
@@ -43,7 +43,7 @@
                 return false;
             }
         }
-
+        
         static string GenerateRandomSecretNumber()
         {
             StringBuilder secretNumber = new StringBuilder();
@@ -152,37 +152,39 @@
         {
             StartGame();
 
-            string nn = GenerateRandomSecretNumber();
-            string n = null;
-            int count1 = 0;
-            int count2 = 0;
+            string secretNumber = GenerateRandomSecretNumber();
+            string playerInput = null;
+            int attempts = 0;
+            int cheats = 0;
 
             while (true)
             {
                 Console.Write("Enter your guess or command: ");
-                n = Console.ReadLine();
+                playerInput = Console.ReadLine();
 
-                if (n == "help")
+                if (playerInput == "help")
                 {
-                    char[] revealedDigits = RevealNumberAtRandomPosition(nn, cheatNumber);
+                    char[] revealedDigits = RevealNumberAtRandomPosition(secretNumber, cheatNumber);
                     StringBuilder revealedNumber = new StringBuilder();
+
                     for (int i = 0; i < 4; i++)
                     {
                         revealedNumber.Append(revealedDigits[i]);
                     }
                     Console.WriteLine("The number looks like {0}", revealedNumber.ToString());
-                    count2++;
+
+                    cheats++;
                     continue;
                 }
-                else if (n == "restart")
+                else if (playerInput == "restart")
                 {
                     Console.WriteLine();
                     StartGame();
-                    count1 = 0;
-                    nn = GenerateRandomSecretNumber();
+                    attempts = 0;
+                    secretNumber = GenerateRandomSecretNumber();
                     continue;
                 }
-                else if (n == "top")
+                else if (playerInput == "top")
                 {
                     if (topScoreBoard.Count == 0)
                     {
@@ -194,41 +196,41 @@
                     }
                     continue;
                 }
-                else if (n == "exit")
+                else if (playerInput == "exit")
                 {
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (n.Length != 4 || proverka(n) == false)
+                else if (playerInput.Length != 4 || checkIfNumConsistsOnlyOfDigits(playerInput) == false)
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;
                 }
-                count1++;
+                attempts++;
                 int bulls = 0;
                 int cows = 0;
-                CalculateBullsAndCows(nn, n, ref bulls, ref cows);
-                if (n == nn)
+                CalculateBullsAndCows(secretNumber, playerInput, ref bulls, ref cows);
+                if (playerInput == secretNumber)
                 {
-                    if (count2 > 0)
+                    if (cheats > 0)
                     {
-                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts and {1} cheats.", count1, count2);
+                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts and {1} cheats.", attempts, cheats);
                         Console.WriteLine("You are not allowed to enter the top scoreboard.");
                         SortAndPrintScoreBoard();
                         Console.WriteLine();
                         StartGame();
-                        count1 = 0;
-                        count2 = 0;
-                        nn = GenerateRandomSecretNumber();
+                        attempts = 0;
+                        cheats = 0;
+                        secretNumber = GenerateRandomSecretNumber();
                     }
                     else
                     {
-                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", count1);
-                        EnterScoreBoard(count1);
-                        count1 = 0;
+                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", attempts);
+                        EnterScoreBoard(attempts);
+                        attempts = 0;
                         Console.WriteLine();
                         StartGame();
-                        nn = GenerateRandomSecretNumber();
+                        secretNumber = GenerateRandomSecretNumber();
                     }
                     continue;
                 }
