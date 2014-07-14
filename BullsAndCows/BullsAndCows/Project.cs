@@ -24,7 +24,7 @@
                               "to cheat and 'exit' to quit the game.");
         }
 
-        static bool checkIfNumConsistsOnlyOfDigits(string num)
+        static bool CheckIfNumConsistsOnlyOfDigits(string num)
         {
             int count = 0;
             for (int i = 0; i < 4; i++)
@@ -201,7 +201,7 @@
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (playerInput.Length != 4 || checkIfNumConsistsOnlyOfDigits(playerInput) == false)
+                else if (playerInput.Length != 4 || CheckIfNumConsistsOnlyOfDigits(playerInput) == false)
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;
