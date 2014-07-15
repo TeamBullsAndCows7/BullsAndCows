@@ -9,7 +9,6 @@
     {
         static char[] cheatNumber = { 'X', 'X', 'X', 'X' };
 
-
         static Dictionary<string, int> topScoreBoard = new Dictionary<string, int>();
 
         static int lastPlayerScore = int.MinValue;
