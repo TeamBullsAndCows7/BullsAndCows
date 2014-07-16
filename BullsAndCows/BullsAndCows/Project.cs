@@ -14,18 +14,20 @@
         static int lastPlayerScore = int.MinValue;
         static List<KeyValuePair<string, int>> sortedDict = new List<KeyValuePair<string, int>>();
 
+        //this will be hidden in the Facade and removed from here
         static int SortDictionary(KeyValuePair<string, int> a, KeyValuePair<string, int> b)
         {
             return a.Value.CompareTo(b.Value);
         }
-
+        //this will be hidden in the Facade and removed from here
+        //start from this method for Decoration pattern usage
         static void StartGame()
         {
             Console.WriteLine("Welcome to “Bulls and Cows” game. Please try to guess my secret 4-digit number.");
             Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game and 'help' " +
                               "to cheat and 'exit' to quit the game.");
         }
-
+        //this will be hidden in the Facade and removed from here
         static bool CheckIfNumConsistsOnlyOfDigits(string num)
         {
             int count = 0;
@@ -48,6 +50,7 @@
 
         //here was GenerateRandomSecretNumber 
 
+        //this will be hidden in the Facade and removed from here
         static void CalculateBullsAndCows(string secretNumber, string guessNumber, ref int bulls, ref int cows)
         {
             List<int> bullIndexes = new List<int>();
@@ -79,6 +82,7 @@
             }
         }
 
+        //this will be hidden in the Facade and removed from here
         static char[] RevealNumberAtRandomPosition(string secretnumber, char[] cheatNumber)
         {
             while (true)
