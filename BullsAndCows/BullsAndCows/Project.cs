@@ -3,105 +3,36 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using BullsAndCows.PrototypePattern;
+    using BullsAndCows.SingletonPattern;
 
     //pochvam da pi6a na c#,egati kEfa!
     public class Proekt
     {
         static char[] cheatNumber = { 'X', 'X', 'X', 'X' };
 
+        //introduce Facade field
+        static GameFacade intro = new GameFacade();
+        
         static Dictionary<string, int> topScoreBoard = new Dictionary<string, int>();
 
         static int lastPlayerScore = int.MinValue;
         static List<KeyValuePair<string, int>> sortedDict = new List<KeyValuePair<string, int>>();
 
-        //this will be hidden in the Facade and removed from here
-        static int SortDictionary(KeyValuePair<string, int> a, KeyValuePair<string, int> b)
-        {
-            return a.Value.CompareTo(b.Value);
-        }
-        //this will be hidden in the Facade and removed from here
-        //start from this method for Decoration pattern usage
-        static void StartGame()
-        {
-            Console.WriteLine("Welcome to “Bulls and Cows” game. Please try to guess my secret 4-digit number.");
-            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game and 'help' " +
-                              "to cheat and 'exit' to quit the game.");
-        }
-        //this will be hidden in the Facade and removed from here
-        static bool CheckIfNumConsistsOnlyOfDigits(string num)
-        {
-            int count = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                if (Char.IsDigit(num[i]))
-                {
-                    count++;
-                }
-            }
-            if (count == 4)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        // here was SortDictionary
 
-        //here was GenerateRandomSecretNumber 
+        //here was Start Game method
 
-        //this will be hidden in the Facade and removed from here
-        static void CalculateBullsAndCows(string secretNumber, string guessNumber, ref int bulls, ref int cows)
-        {
-            List<int> bullIndexes = new List<int>();
-            List<int> cowIndexes = new List<int>();
-            for (int i = 0; i < secretNumber.Length; i++)
-            {
-                if (guessNumber[i].Equals(secretNumber[i]))
-                {
-                    bullIndexes.Add(i);
+        // here was CheckIfNumConsistsOnlyOfDigits
 
-                    bulls++;
-                }
-            }
+        // here was GenerateRandomSecretNumber 
 
-            for (int i = 0; i < guessNumber.Length; i++)
-            {
-                for (int index = 0; index < secretNumber.Length; index++)
-                {
-                    if ((i != index) && !bullIndexes.Contains(index) && !cowIndexes.Contains(index) && !bullIndexes.Contains(i))
-                    {
-                        if (guessNumber[i].Equals(secretNumber[index]))
-                        {
-                            cowIndexes.Add(index);
-                            cows++;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        // here was CalculateBullsAndCows
 
-        //this will be hidden in the Facade and removed from here
-        static char[] RevealNumberAtRandomPosition(string secretnumber, char[] cheatNumber)
-        {
-            while (true)
-            {
-                Random rand = new Random();
-                int index = rand.Next(0, 4);
-                if (cheatNumber[index] == 'X')
-                {
-                    cheatNumber[index] = secretnumber[index];
-                    return cheatNumber;
-                }
-                else
-                {
-                    continue;
-                }
-            }
-        }
+        // here was RevealNumberAtRandomPosition        
 
-        //Memento design(observation) pattern for posible usage
+        //Memento design(observation) pattern for possible usage
+
         static void EnterScoreBoard(int score)
         {
             Console.Write("Please enter your name for the top scoreboard: ");
@@ -126,6 +57,7 @@
             }
             SortAndPrintScoreBoard();
         }
+
         //Memento design(behavioral) pattern possible usage
         static void SortAndPrintScoreBoard()
         {
@@ -134,7 +66,7 @@
                 sortedDict.Add(new KeyValuePair<string, int>(pair.Key, pair.Value));
             }
 
-            sortedDict.Sort(SortDictionary);
+            sortedDict.Sort(intro.Sort);
             Console.WriteLine("Scoreboard: ");
             int counter = 0;
             foreach (KeyValuePair<string, int> player in sortedDict)
@@ -147,8 +79,11 @@
 
         static void Main()
         {
-            StartGame();
-            //adding the instance through Singleton
+            //introducing the Facade Pattern
+            intro.GameMessage();
+
+            //StartGame();
+            // adding the instance through Singleton
             var attach = RandomNumberGenerator.Instance;
             var secretNumber = attach.Next();
             //string secretNumber = GenerateRandomSecretNumber();            
@@ -157,8 +92,6 @@
             int cheats = 0;
             //adding instance of Prototype ScoreBoard
             var getScores = new Board();
-
-
 
 
             while (true)
@@ -173,7 +106,7 @@
                 //check number of help used (if-else) or kind of switch
                 if (playerInput == "help")
                 {
-                    char[] revealedDigits = RevealNumberAtRandomPosition(secretNumber.ToString(), cheatNumber);
+                    char[] revealedDigits = intro.RevealNumber(secretNumber.ToString(), cheatNumber);
                     StringBuilder revealedNumber = new StringBuilder();
 
                     for (int i = 0; i < 4; i++)
@@ -188,7 +121,8 @@
                 else if (playerInput == "restart")
                 {
                     Console.WriteLine();
-                    StartGame();
+                    intro.GameMessage();
+                    //StartGame();
                     attempts = 0;
                     secretNumber = attach.Next();
                     continue;
@@ -210,7 +144,7 @@
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (playerInput.Length != 4 || CheckIfNumConsistsOnlyOfDigits(playerInput) == false)
+                else if (intro.CheckerForDigits(playerInput) == false)
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;
@@ -218,7 +152,8 @@
                 attempts++;
                 int bulls = 0;
                 int cows = 0;
-                CalculateBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
+                intro.GetBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
+                //CalculateBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
                 if (playerInput == secretNumber.ToString())
                 {
                     if (cheats > 0)
@@ -227,7 +162,8 @@
                         Console.WriteLine("You are not allowed to enter the top scoreboard.");
                         SortAndPrintScoreBoard();
                         Console.WriteLine();
-                        StartGame();
+                        intro.GameMessage();
+                        //StartGame();
                         attempts = 0;
                         cheats = 0;
                         secretNumber = attach.Next();
@@ -245,7 +181,8 @@
                         Console.WriteLine(String.Format("Scores: {0} | Cheats: {1}", copiedScores.Name, copiedScores.Score));
                         attempts = 0;
                         Console.WriteLine();
-                        StartGame();
+                        intro.GameMessage();
+                        //StartGame();                        
                         secretNumber = attach.Next();
                     }
                     continue;

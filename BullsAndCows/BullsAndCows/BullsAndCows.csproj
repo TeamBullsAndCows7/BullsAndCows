@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FacadePattern\Calculate.cs" />
+    <Compile Include="FacadePattern\GameFacade.cs" />
+    <Compile Include="FacadePattern\GameIntro.cs" />
+    <Compile Include="FacadePattern\NumChecker.cs" />
+    <Compile Include="FacadePattern\RevealPosition.cs" />
+    <Compile Include="FacadePattern\Sort.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PrototypePattern\Board.cs" />

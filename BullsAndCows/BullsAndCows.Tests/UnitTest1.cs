@@ -1,4 +1,5 @@
 ﻿using System;
+using BullsAndCows.SingletonPattern;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BullsAndCows.Tests
