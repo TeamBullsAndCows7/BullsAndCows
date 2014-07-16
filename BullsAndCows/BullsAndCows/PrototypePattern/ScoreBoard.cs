@@ -1,17 +1,23 @@
 ﻿namespace BullsAndCows.PrototypePattern
 {
-    public class ScoreBoard : ScorePrototype
+    using System;
+    public class ScoreBoard : ICloneable
     {
 
         public ScoreBoard(string name, int score)
-            : base(score)
         {
+            this.Name = name;
+            this.Score = score;
         }
 
-        public override ScorePrototype Clone()
+        // Validation required
+        public int Score { get; set; }
+
+        public string Name { get; set; }
+
+        object ICloneable.Clone()
         {
-            //we should use shallow copy/ if not correct usage
-            return (ScorePrototype)this.MemberwiseClone();
+            return this.MemberwiseClone() as ScoreBoard;
         }
     }
 }
