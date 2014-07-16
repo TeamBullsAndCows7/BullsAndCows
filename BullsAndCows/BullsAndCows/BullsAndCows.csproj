@@ -48,7 +48,7 @@
     <Compile Include="PrototypePattern\Board.cs" />
     <Compile Include="PrototypePattern\ScoreBoard.cs" />
     <Compile Include="PrototypePattern\ScorePrototype.cs" />
-    <Compile Include="SingletonPattern\NumberConfigurationManager.cs" />
+    <Compile Include="SingletonPattern\RandomNumberGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

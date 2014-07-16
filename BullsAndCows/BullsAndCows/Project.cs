@@ -145,8 +145,8 @@
         {
             StartGame();
             //adding the instance through Singleton
-            var attach = NumberConfigurationManager.GetInstance;
-            var secretNumber = attach.GenerateRandomSecretNumber();
+            var attach = RandomNumberGenerator.Instance;
+            var secretNumber = attach.Next();
             //string secretNumber = GenerateRandomSecretNumber();            
             string playerInput = null;
             int attempts = 0;
@@ -169,7 +169,7 @@
                 //check number of help used (if-else) or kind of switch
                 if (playerInput == "help")
                 {
-                    char[] revealedDigits = RevealNumberAtRandomPosition(secretNumber, cheatNumber);
+                    char[] revealedDigits = RevealNumberAtRandomPosition(secretNumber.ToString(), cheatNumber);
                     StringBuilder revealedNumber = new StringBuilder();
 
                     for (int i = 0; i < 4; i++)
@@ -186,7 +186,7 @@
                     Console.WriteLine();
                     StartGame();
                     attempts = 0;
-                    secretNumber = attach.GenerateRandomSecretNumber();
+                    secretNumber = attach.Next();
                     continue;
                 }
                 else if (playerInput == "top")
@@ -214,8 +214,8 @@
                 attempts++;
                 int bulls = 0;
                 int cows = 0;
-                CalculateBullsAndCows(secretNumber, playerInput, ref bulls, ref cows);
-                if (playerInput == secretNumber)
+                CalculateBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
+                if (playerInput == secretNumber.ToString())
                 {
                     if (cheats > 0)
                     {
@@ -226,7 +226,7 @@
                         StartGame();
                         attempts = 0;
                         cheats = 0;
-                        secretNumber = attach.GenerateRandomSecretNumber();
+                        secretNumber = attach.Next();
                     }
                     else
                     {
@@ -242,7 +242,7 @@
                         attempts = 0;
                         Console.WriteLine();
                         StartGame();
-                        secretNumber = attach.GenerateRandomSecretNumber();
+                        secretNumber = attach.Next();
                     }
                     continue;
                 }
