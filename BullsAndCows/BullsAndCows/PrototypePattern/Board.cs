@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BullsAndCows
+﻿namespace BullsAndCows.PrototypePattern
 {
+    using System.Collections.Generic;
+
     public class Board
     {
         private Dictionary<string, ScorePrototype> _scoreInstance = new Dictionary<string, ScorePrototype>();

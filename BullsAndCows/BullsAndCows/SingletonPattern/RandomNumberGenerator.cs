@@ -1,4 +1,4 @@
-﻿namespace BullsAndCows
+﻿namespace BullsAndCows.SingletonPattern
 {
     using System;
     using System.Text;
