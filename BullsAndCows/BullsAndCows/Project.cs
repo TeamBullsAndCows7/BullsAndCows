@@ -97,7 +97,7 @@
             }
         }
 
-        //Memento design(observation) pattern for possible usage
+        //Memento design(observation) pattern for posible usage
         static void EnterScoreBoard(int score)
         {
             Console.Write("Please enter your name for the top scoreboard: ");
