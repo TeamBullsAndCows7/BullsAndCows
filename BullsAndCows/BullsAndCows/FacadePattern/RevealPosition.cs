@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class RevealPosition
+    public class RevealPosition : IRandomNumber
     {
         public char[] RevealNumberAtRandomPosition(string secretnumber, char[] cheatNumber)
         {
@@ -21,7 +21,7 @@
             }
         }
 
-        private int GetRandomNumber(int min, int max)
+        public int GetRandomNumber(int min, int max)
         {
             Random rand = new Random();
             return rand.Next(min, max);

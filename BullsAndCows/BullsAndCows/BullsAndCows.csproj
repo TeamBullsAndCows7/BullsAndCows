@@ -46,6 +46,7 @@
     <Compile Include="FacadePattern\Calculate.cs" />
     <Compile Include="FacadePattern\GameFacade.cs" />
     <Compile Include="FacadePattern\GameIntro.cs" />
+    <Compile Include="FacadePattern\IRandomNumber.cs" />
     <Compile Include="FacadePattern\NumChecker.cs" />
     <Compile Include="FacadePattern\RevealPosition.cs" />
     <Compile Include="FacadePattern\Sort.cs" />
