@@ -33,12 +33,10 @@
 
         public bool CheckIfNumberIsValid(string num)
         {
-            if (num.Length != 4)
-            {
-                return false;
-            }
-
-            if (!this.numberManipulator.CheckIfNumConsistsOnlyOfDigits(num))
+            if (num.Length != 4
+                || num[0] == '0'
+                || !this.numberManipulator.CheckIfNumConsistsOnlyOfDigits(num)
+                || this.numberManipulator.CheckIfDigitsAreDifferent(num))
             {
                 return false;
             }

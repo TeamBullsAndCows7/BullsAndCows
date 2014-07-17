@@ -144,7 +144,7 @@
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (gameEngine.CheckIfNumberIsValid(playerInput) == false)
+                else if (!gameEngine.CheckIfNumberIsValid(playerInput))
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;

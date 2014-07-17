@@ -31,15 +31,19 @@
             StringBuilder sb = new StringBuilder(numberOfDigits);
             for (int i = 0; i < 4; i++)
             {
-                if (i == 0)
+                int randomDigit = this.NextDigit(RandomNumberGenerator.MinNumber, RandomNumberGenerator.MaxNumber);
+
+                if (i == 0 && randomDigit == 0)
                 {
-                    sb.Append(this.random.Next(1, RandomNumberGenerator.MaxNumber + 1)); // 0 can't be at position 1
+                    randomDigit++;
                 }
-                else
+
+                while (sb.ToString().IndexOf(randomDigit.ToString()) != -1)
                 {
-                    sb.Append(this.random.Next(RandomNumberGenerator.MinNumber,
-                        RandomNumberGenerator.MaxNumber + 1));
+                    randomDigit = this.NextDigit(RandomNumberGenerator.MinNumber, RandomNumberGenerator.MaxNumber);
                 }
+
+                sb.Append(randomDigit);
             }
 
             int randomNumber = int.Parse(sb.ToString());
