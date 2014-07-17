@@ -12,7 +12,7 @@
         static char[] cheatNumber = { 'X', 'X', 'X', 'X' };
 
         //introduce Facade field
-        static GameFacade intro = new GameFacade();
+        static GameEngine gameEngine = GameEngine.GetInstance();
         
         static Dictionary<string, int> topScoreBoard = new Dictionary<string, int>();
 
@@ -66,7 +66,7 @@
                 sortedDict.Add(new KeyValuePair<string, int>(pair.Key, pair.Value));
             }
 
-            sortedDict.Sort(intro.Sort);
+            sortedDict.Sort(gameEngine.SortDictionary);
             Console.WriteLine("Scoreboard: ");
             int counter = 0;
             foreach (KeyValuePair<string, int> player in sortedDict)
@@ -80,12 +80,12 @@
         static void Main()
         {
             //introducing the Facade Pattern
-            intro.GameMessage();
+            gameEngine.StartMessage();
 
             //StartGame();
             // adding the instance through Singleton
             var attach = RandomNumberGenerator.Instance;
-            var secretNumber = attach.Next();
+            var secretNumber = attach.NextNumber();
             //string secretNumber = GenerateRandomSecretNumber();            
             string playerInput = null;
             int attempts = 0;
@@ -106,7 +106,7 @@
                 //check number of help used (if-else) or kind of switch
                 if (playerInput == "help")
                 {
-                    char[] revealedDigits = intro.RevealNumber(secretNumber.ToString(), cheatNumber);
+                    char[] revealedDigits = gameEngine.RevealNumber(secretNumber.ToString(), cheatNumber);
                     StringBuilder revealedNumber = new StringBuilder();
 
                     for (int i = 0; i < 4; i++)
@@ -121,10 +121,10 @@
                 else if (playerInput == "restart")
                 {
                     Console.WriteLine();
-                    intro.GameMessage();
+                    gameEngine.StartMessage();
                     //StartGame();
                     attempts = 0;
-                    secretNumber = attach.Next();
+                    secretNumber = attach.NextNumber();
                     continue;
                 }
                 else if (playerInput == "top")
@@ -144,7 +144,7 @@
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (intro.CheckerForDigits(playerInput) == false)
+                else if (gameEngine.CheckIfNumberIsValid(playerInput) == false)
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;
@@ -152,7 +152,7 @@
                 attempts++;
                 int bulls = 0;
                 int cows = 0;
-                intro.GetBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
+                gameEngine.GetBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
                 //CalculateBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
                 if (playerInput == secretNumber.ToString())
                 {
@@ -162,11 +162,11 @@
                         Console.WriteLine("You are not allowed to enter the top scoreboard.");
                         SortAndPrintScoreBoard();
                         Console.WriteLine();
-                        intro.GameMessage();
+                        gameEngine.StartMessage();
                         //StartGame();
                         attempts = 0;
                         cheats = 0;
-                        secretNumber = attach.Next();
+                        secretNumber = attach.NextNumber();
                     }
                     else
                     {
@@ -181,9 +181,9 @@
                         Console.WriteLine(String.Format("Scores: {0} | Cheats: {1}", copiedScores.Name, copiedScores.Score));
                         attempts = 0;
                         Console.WriteLine();
-                        intro.GameMessage();
+                        gameEngine.StartMessage();
                         //StartGame();                        
-                        secretNumber = attach.Next();
+                        secretNumber = attach.NextNumber();
                     }
                     continue;
                 }

@@ -19,7 +19,7 @@ namespace BullsAndCows.Tests
 
             for (int i = 0; i < 1000; ++i)
             {
-                int number = randomNumberGenerator.Next();
+                int number = randomNumberGenerator.NextNumber();
 
                 int expectedLength = 4;
                 int actualLenght = number.ToString().Length;

@@ -1,6 +1,8 @@
 ﻿namespace BullsAndCows.PrototypePattern
 {
     using System;
+    using System.Collections.Generic;
+
     public class ScoreBoard : ICloneable
     {
 

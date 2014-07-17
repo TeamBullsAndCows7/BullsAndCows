@@ -1,9 +1,41 @@
 ﻿namespace BullsAndCows
 {
+    using BullsAndCows.SingletonPattern;
+    using System;
     using System.Collections.Generic;
 
-    public class Calculate
+    public class NumberManipulator
     {
+        public char[] RevealNumberAtRandomPosition(RandomNumberGenerator generator, string secretnumber, char[] cheatNumber)
+        {
+            while (true)
+            {
+                int index = generator.NextDigit(0, 4);
+                if (cheatNumber[index] == 'X')
+                {
+                    cheatNumber[index] = secretnumber[index];
+                    return cheatNumber;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
+        public bool CheckIfNumConsistsOnlyOfDigits(string num)
+        {
+            foreach (char ch in num)
+            {
+                if ('0' > ch || ch > '9')
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public void CalculateBullsAndCows(string secretNumber, string guessNumber, ref int bulls, ref int cows)
         {
             List<int> bullIndexes = new List<int>();
