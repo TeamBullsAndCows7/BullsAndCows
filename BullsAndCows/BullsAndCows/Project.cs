@@ -1,5 +1,6 @@
 ﻿namespace BullsAndCows
 {
+    //original project code
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -12,14 +13,36 @@
         static int lastPlayerScore = int.MinValue;
         static List<KeyValuePair<string, int>> sortedDict = new List<KeyValuePair<string, int>>();
 
-        //class PrintGameMessage
-        static PrintGameMessage intro = new PrintGameMessage();
-        //class CheckNumber
-        static CheckNumber checker = new CheckNumber();
-
         static int SortDictionary(KeyValuePair<string, int> a, KeyValuePair<string, int> b)
         {
             return a.Value.CompareTo(b.Value);
+        }
+
+        static void StartGame()
+        {
+            Console.WriteLine("Welcome to “Bulls and Cows” game. Please try to guess my secret 4-digit number.");
+            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game and 'help' " +
+                              "to cheat and 'exit' to quit the game.");
+        }
+
+        static bool proverka(string num)
+        {
+            int count = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                if (Char.IsDigit(num[i]))
+                {
+                    count++;
+                }
+            }
+            if (count == 4)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         static string GenerateRandomSecretNumber()
@@ -128,8 +151,7 @@
 
         static void Main()
         {
-
-            intro.StartGame();
+            StartGame();
 
             string nn = GenerateRandomSecretNumber();
             string n = null;
@@ -156,7 +178,7 @@
                 else if (n == "restart")
                 {
                     Console.WriteLine();
-                    intro.StartGame();
+                    StartGame();
                     count1 = 0;
                     nn = GenerateRandomSecretNumber();
                     continue;
@@ -178,7 +200,7 @@
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (n.Length != 4 || checker.isNumber(n) == false)
+                else if (n.Length != 4 || proverka(n) == false)
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;
@@ -195,7 +217,7 @@
                         Console.WriteLine("You are not allowed to enter the top scoreboard.");
                         SortAndPrintScoreBoard();
                         Console.WriteLine();
-                        intro.StartGame();
+                        StartGame();
                         count1 = 0;
                         count2 = 0;
                         nn = GenerateRandomSecretNumber();
@@ -206,7 +228,7 @@
                         EnterScoreBoard(count1);
                         count1 = 0;
                         Console.WriteLine();
-                        intro.StartGame();
+                        StartGame();
                         nn = GenerateRandomSecretNumber();
                     }
                     continue;
