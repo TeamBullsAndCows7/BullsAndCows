@@ -8,49 +8,32 @@
     public class Proekt
     {
         static char[] cheatNumber = { 'X', 'X', 'X', 'X' };
-
         static Dictionary<string, int> topScoreBoard = new Dictionary<string, int>();
-
         static int lastPlayerScore = int.MinValue;
         static List<KeyValuePair<string, int>> sortedDict = new List<KeyValuePair<string, int>>();
 
-        //this will be hidden in the Facade and removed from here
+        //class PrintGameMessage
+        static PrintGameMessage intro = new PrintGameMessage();
+        //class CheckNumber
+        static CheckNumber checker = new CheckNumber();
+
         static int SortDictionary(KeyValuePair<string, int> a, KeyValuePair<string, int> b)
         {
             return a.Value.CompareTo(b.Value);
         }
-        //this will be hidden in the Facade and removed from here
-        //start from this method for Decoration pattern usage
-        static void StartGame()
+
+        static string GenerateRandomSecretNumber()
         {
-            Console.WriteLine("Welcome to “Bulls and Cows” game. Please try to guess my secret 4-digit number.");
-            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game and 'help' " +
-                              "to cheat and 'exit' to quit the game.");
-        }
-        //this will be hidden in the Facade and removed from here
-        static bool CheckIfNumConsistsOnlyOfDigits(string num)
-        {
-            int count = 0;
-            for (int i = 0; i < 4; i++)
+            StringBuilder secretNumber = new StringBuilder();
+            Random rand = new Random();
+            while (secretNumber.Length != 4)
             {
-                if (Char.IsDigit(num[i]))
-                {
-                    count++;
-                }
+                int number = rand.Next(0, 10);
+                secretNumber.Append(number.ToString());
             }
-            if (count == 4)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return secretNumber.ToString();
         }
 
-        //here was GenerateRandomSecretNumber 
-
-        //this will be hidden in the Facade and removed from here
         static void CalculateBullsAndCows(string secretNumber, string guessNumber, ref int bulls, ref int cows)
         {
             List<int> bullIndexes = new List<int>();
@@ -62,8 +45,6 @@
                     bullIndexes.Add(i);
 
                     bulls++;
-
-                    ObserverPattern.Observer.BullRevealedEvent();
                 }
             }
 
@@ -77,7 +58,6 @@
                         {
                             cowIndexes.Add(index);
                             cows++;
-                            ObserverPattern.Observer.CowRevealedEvent();
                             break;
                         }
                     }
@@ -85,7 +65,6 @@
             }
         }
 
-        //this will be hidden in the Facade and removed from here
         static char[] RevealNumberAtRandomPosition(string secretnumber, char[] cheatNumber)
         {
             while (true)
@@ -104,7 +83,6 @@
             }
         }
 
-        //Memento design(observation) pattern for posible usage
         static void EnterScoreBoard(int score)
         {
             Console.Write("Please enter your name for the top scoreboard: ");
@@ -129,7 +107,7 @@
             }
             SortAndPrintScoreBoard();
         }
-        //Memento design(behavioral) pattern possible usage
+
         static void SortAndPrintScoreBoard()
         {
             foreach (var pair in topScoreBoard)
@@ -150,53 +128,40 @@
 
         static void Main()
         {
-            StartGame();
-            //adding the instance through Singleton
-            var attach = RandomNumberGenerator.Instance;
-            var secretNumber = attach.Next();
-            //string secretNumber = GenerateRandomSecretNumber();            
-            string playerInput = null;
-            int attempts = 0;
-            int cheats = 0;
-            //adding instance of Prototype ScoreBoard
-            var getScores = new Board();
 
+            intro.StartGame();
 
-
+            string nn = GenerateRandomSecretNumber();
+            string n = null;
+            int count1 = 0;
+            int count2 = 0;
 
             while (true)
             {
                 Console.Write("Enter your guess or command: ");
-                playerInput = Console.ReadLine();
+                n = Console.ReadLine();
 
-                //helps has bug response by continuing a new game
-                //the bug is displayed from the old code 
-                //before implementation of Singleton change instance
-                //also could possibly throw Message that Player used all numbers of help
-                //check number of help used (if-else) or kind of switch
-                if (playerInput == "help")
+                if (n == "help")
                 {
-                    char[] revealedDigits = RevealNumberAtRandomPosition(secretNumber.ToString(), cheatNumber);
+                    char[] revealedDigits = RevealNumberAtRandomPosition(nn, cheatNumber);
                     StringBuilder revealedNumber = new StringBuilder();
-
                     for (int i = 0; i < 4; i++)
                     {
                         revealedNumber.Append(revealedDigits[i]);
                     }
                     Console.WriteLine("The number looks like {0}", revealedNumber.ToString());
-
-                    cheats++;
+                    count2++;
                     continue;
                 }
-                else if (playerInput == "restart")
+                else if (n == "restart")
                 {
                     Console.WriteLine();
-                    StartGame();
-                    attempts = 0;
-                    secretNumber = attach.Next();
+                    intro.StartGame();
+                    count1 = 0;
+                    nn = GenerateRandomSecretNumber();
                     continue;
                 }
-                else if (playerInput == "top")
+                else if (n == "top")
                 {
                     if (topScoreBoard.Count == 0)
                     {
@@ -208,48 +173,41 @@
                     }
                     continue;
                 }
-                else if (playerInput == "exit")
+                else if (n == "exit")
                 {
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (playerInput.Length != 4 || CheckIfNumConsistsOnlyOfDigits(playerInput) == false)
+                else if (n.Length != 4 || checker.isNumber(n) == false)
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;
                 }
-                attempts++;
+                count1++;
                 int bulls = 0;
                 int cows = 0;
-                CalculateBullsAndCows(secretNumber.ToString(), playerInput, ref bulls, ref cows);
-                if (playerInput == secretNumber.ToString())
+                CalculateBullsAndCows(nn, n, ref bulls, ref cows);
+                if (n == nn)
                 {
-                    if (cheats > 0)
+                    if (count2 > 0)
                     {
-                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts and {1} cheats.", attempts, cheats);
+                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts and {1} cheats.", count1, count2);
                         Console.WriteLine("You are not allowed to enter the top scoreboard.");
                         SortAndPrintScoreBoard();
                         Console.WriteLine();
-                        StartGame();
-                        attempts = 0;
-                        cheats = 0;
-                        secretNumber = attach.Next();
+                        intro.StartGame();
+                        count1 = 0;
+                        count2 = 0;
+                        nn = GenerateRandomSecretNumber();
                     }
                     else
                     {
-                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", attempts);
-                        EnterScoreBoard(attempts);
-                        //testing Prototype 
-                        //should replace cheats with real scores
-                        getScores.AddScore(playerInput, new ScoreBoard(playerInput, cheats));
-                        var copiedScores = (ScoreBoard)getScores.GetScore(playerInput);
-                        copiedScores.Name = playerInput;
-                        copiedScores.Score = cheats;
-                        Console.WriteLine(String.Format("Scores: {0} | Cheats: {1}", copiedScores.Name, copiedScores.Score));
-                        attempts = 0;
+                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", count1);
+                        EnterScoreBoard(count1);
+                        count1 = 0;
                         Console.WriteLine();
-                        StartGame();
-                        secretNumber = attach.Next();
+                        intro.StartGame();
+                        nn = GenerateRandomSecretNumber();
                     }
                     continue;
                 }

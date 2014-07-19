@@ -1,5 +1,4 @@
 ﻿using System;
-using BullsAndCows.SingletonPattern;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BullsAndCows.Tests
@@ -13,19 +12,9 @@ namespace BullsAndCows.Tests
         }
 
         [TestMethod]
-        public void TestRandomNumberGenerator()
+        public void TestMetod2()
         {
-            var randomNumberGenerator = RandomNumberGenerator.Instance;
-
-            for (int i = 0; i < 1000; ++i)
-            {
-                int number = randomNumberGenerator.NextNumber();
-
-                int expectedLength = 4;
-                int actualLenght = number.ToString().Length;
-
-                Assert.AreEqual(expectedLength, actualLenght);
-            }
+           
         }
     }
 }

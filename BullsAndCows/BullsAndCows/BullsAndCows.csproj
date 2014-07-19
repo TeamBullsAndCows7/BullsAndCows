@@ -43,14 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FacadePattern\GameEngine.cs" />
-    <Compile Include="FacadePattern\Messenger.cs" />
-    <Compile Include="FacadePattern\NumberManipulator.cs" />
+    <Compile Include="LogicSeparation\CheckNumber.cs" />
+    <Compile Include="LogicSeparation\PrintGameMessage.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PrototypePattern\Board.cs" />
-    <Compile Include="PrototypePattern\ScoreBoard.cs" />
-    <Compile Include="SingletonPattern\RandomNumberGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
