@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="Commands\CommandType.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Commands\GuessNumberCommand.cs" />
@@ -54,6 +55,10 @@
     <Compile Include="Driver\Driver.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Driver\IDriver.cs" />
+    <Compile Include="Logic\ILogic.cs" />
+    <Compile Include="Logic\NormalLogic.cs" />
+    <Compile Include="Observer\IObservable.cs" />
+    <Compile Include="Observer\Observer.cs" />
     <Compile Include="Utils\ScoreBoard.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
