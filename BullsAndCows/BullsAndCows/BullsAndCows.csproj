@@ -57,6 +57,10 @@
     <Compile Include="Driver\IDriver.cs" />
     <Compile Include="Logic\ILogic.cs" />
     <Compile Include="Logic\NormalLogic.cs" />
+    <Compile Include="Messenger\ColoredMessenger.cs" />
+    <Compile Include="Messenger\DefaultMessenger.cs" />
+    <Compile Include="Messenger\IMessenger.cs" />
+    <Compile Include="Messenger\MessengerDecorator.cs" />
     <Compile Include="Observer\IObservable.cs" />
     <Compile Include="Observer\Observer.cs" />
     <Compile Include="Utils\ScoreBoard.cs" />
