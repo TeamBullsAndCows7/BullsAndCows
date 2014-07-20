@@ -10,7 +10,7 @@ namespace BullsAndCows.Commands
     {
         public CommandType Type
         {
-            get { return CommandType.Top; }
+            get { return CommandType.GuessNumber; }
         }
 
         public void Execute()

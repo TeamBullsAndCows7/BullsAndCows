@@ -5,7 +5,7 @@ namespace BullsAndCows.Commands
     {
         public CommandType Type
         {
-            get { return CommandType.Top; }
+            get { return CommandType.Exit; }
         }
 
         public void Execute()
