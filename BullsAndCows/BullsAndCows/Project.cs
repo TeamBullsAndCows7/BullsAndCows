@@ -1,5 +1,6 @@
 ﻿namespace BullsAndCows
 {
+    using BullsAndCows.Utils;
     //original project code
     using System;
     using System.Collections.Generic;
@@ -9,23 +10,19 @@
     public class Proekt
     {
         static char[] cheatNumber = { 'X', 'X', 'X', 'X' };
-        static Dictionary<string, int> topScoreBoard = new Dictionary<string, int>();
-        static int lastPlayerScore = int.MinValue;
-        static List<KeyValuePair<string, int>> sortedDict = new List<KeyValuePair<string, int>>();
-
-        static int SortDictionary(KeyValuePair<string, int> a, KeyValuePair<string, int> b)
-        {
-            return a.Value.CompareTo(b.Value);
-        }
+        static SortedDictionary<string, int> ScoreBoard = new SortedDictionary<string, int>();     
 
         static void StartGame()
         {
-            Console.WriteLine("Welcome to “Bulls and Cows” game. Please try to guess my secret 4-digit number.");
-            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game and 'help' " +
-                              "to cheat and 'exit' to quit the game.");
+            Console.WriteLine("Welcome to “Bulls and Cows” game.\nPlease try to guess my secret 4-digit number.\n\n");
+            Console.WriteLine("Use one of the following command: ");
+            Console.WriteLine("\r'top' - view the top scoreboard.");
+            Console.WriteLine("\r'restart' - start a new game.");
+            Console.WriteLine("\r'help' - reveal a number.");
+            Console.WriteLine("\r'exit' - quit the game.");
         }
 
-        static bool proverka(string num)
+        static bool IsCorrectNumber(string num)
         {
             int count = 0;
             for (int i = 0; i < 4; i++)
@@ -43,18 +40,6 @@
             {
                 return false;
             }
-        }
-
-        static string GenerateRandomSecretNumber()
-        {
-            StringBuilder secretNumber = new StringBuilder();
-            Random rand = new Random();
-            while (secretNumber.Length != 4)
-            {
-                int number = rand.Next(0, 10);
-                secretNumber.Append(number.ToString());
-            }
-            return secretNumber.ToString();
         }
 
         static void CalculateBullsAndCows(string secretNumber, string guessNumber, ref int bulls, ref int cows)
@@ -106,130 +91,88 @@
             }
         }
 
-        static void EnterScoreBoard(int score)
-        {
-            Console.Write("Please enter your name for the top scoreboard: ");
-            string name = Console.ReadLine();
-            topScoreBoard.Add(name, score);
-
-            if (score > lastPlayerScore)
-            {
-                lastPlayerScore = score;
-            }
-
-            if (topScoreBoard.Count > 5)
-            {
-                foreach (KeyValuePair<string, int> player in topScoreBoard)
-                {
-                    if (player.Value == lastPlayerScore)
-                    {
-                        topScoreBoard.Remove(player.Key);
-                        break;
-                    }
-                }
-            }
-            SortAndPrintScoreBoard();
-        }
-
-        static void SortAndPrintScoreBoard()
-        {
-            foreach (var pair in topScoreBoard)
-            {
-                sortedDict.Add(new KeyValuePair<string, int>(pair.Key, pair.Value));
-            }
-
-            sortedDict.Sort(SortDictionary);
-            Console.WriteLine("Scoreboard: ");
-            int counter = 0;
-            foreach (KeyValuePair<string, int> player in sortedDict)
-            {
-                counter++;
-                Console.WriteLine("{0}. {1} --> {2} guesses", counter, player.Key, player.Value);
-            }
-            sortedDict.Clear();
-        }
-
         static void Main()
         {
             StartGame();
 
-            string nn = GenerateRandomSecretNumber();
-            string n = null;
-            int count1 = 0;
-            int count2 = 0;
+            string secretNumber = RandomNumberGenerator.Instance.Next().ToString();
+            string userInput = null;
+            int attemptsToGuess = 0;
+            int helpCalled = 0;
 
             while (true)
             {
                 Console.Write("Enter your guess or command: ");
-                n = Console.ReadLine();
+                userInput = Console.ReadLine();
 
-                if (n == "help")
+                if (userInput == "help")
                 {
-                    char[] revealedDigits = RevealNumberAtRandomPosition(nn, cheatNumber);
+                    char[] revealedDigits = RevealNumberAtRandomPosition(secretNumber, cheatNumber);
                     StringBuilder revealedNumber = new StringBuilder();
                     for (int i = 0; i < 4; i++)
                     {
                         revealedNumber.Append(revealedDigits[i]);
                     }
                     Console.WriteLine("The number looks like {0}", revealedNumber.ToString());
-                    count2++;
+                    helpCalled++;
                     continue;
                 }
-                else if (n == "restart")
+                else if (userInput == "restart")
                 {
                     Console.WriteLine();
                     StartGame();
-                    count1 = 0;
-                    nn = GenerateRandomSecretNumber();
+                    attemptsToGuess = 0;
+                    secretNumber = RandomNumberGenerator.Instance.Next().ToString();
                     continue;
                 }
-                else if (n == "top")
+                else if (userInput == "top")
                 {
-                    if (topScoreBoard.Count == 0)
+                    if (ScoreBoard.Count == 0)
                     {
                         Console.WriteLine("Top scoreboard is empty.");
                     }
                     else
                     {
-                        SortAndPrintScoreBoard();
+                        //PrintScoreBoard();
                     }
                     continue;
                 }
-                else if (n == "exit")
+                else if (userInput == "exit")
                 {
                     Console.WriteLine("Good bye!");
                     break;
                 }
-                else if (n.Length != 4 || proverka(n) == false)
+                else if (userInput.Length != 4 || IsCorrectNumber(userInput) == false)
                 {
                     Console.WriteLine("Incorrect guess or command!");
                     continue;
                 }
-                count1++;
+
+                attemptsToGuess++;
                 int bulls = 0;
                 int cows = 0;
-                CalculateBullsAndCows(nn, n, ref bulls, ref cows);
-                if (n == nn)
+                CalculateBullsAndCows(secretNumber, userInput, ref bulls, ref cows);
+                if (userInput == secretNumber)
                 {
-                    if (count2 > 0)
+                    if (helpCalled > 0)
                     {
-                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts and {1} cheats.", count1, count2);
+                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts and {1} cheats.", attemptsToGuess, helpCalled);
                         Console.WriteLine("You are not allowed to enter the top scoreboard.");
-                        SortAndPrintScoreBoard();
+                        //PrintScoreBoard();
                         Console.WriteLine();
                         StartGame();
-                        count1 = 0;
-                        count2 = 0;
-                        nn = GenerateRandomSecretNumber();
+                        attemptsToGuess = 0;
+                        helpCalled = 0;
+                        secretNumber = RandomNumberGenerator.Instance.Next().ToString();
                     }
                     else
                     {
-                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", count1);
-                        EnterScoreBoard(count1);
-                        count1 = 0;
+                        Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", attemptsToGuess);
+                        //EnterScoreBoard(attemptsToGuess);
+                        attemptsToGuess = 0;
                         Console.WriteLine();
                         StartGame();
-                        nn = GenerateRandomSecretNumber();
+                        secretNumber = RandomNumberGenerator.Instance.Next().ToString();
                     }
                     continue;
                 }
