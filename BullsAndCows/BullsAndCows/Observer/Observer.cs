@@ -20,5 +20,45 @@
         {
             observableList.Remove(observableObject);
         }
+
+        public static void CommandHelpEventExecuted()
+        {
+            foreach (var item in observableList)
+            {
+                item.OnCommandHelpEvent();
+            }
+        }
+
+        public static void CommandRestartEventExecuted()
+        {
+            foreach (var item in observableList)
+            {
+                item.OnCommandRestartEvent();
+            }
+        }
+
+        public static void CommandTopEventExecuted()
+        {
+            foreach (var item in observableList)
+            {
+                item.OnCommandTopEvent();
+            }
+        }
+
+        public static void CommandExitEventExecuted()
+        {
+            foreach (var item in observableList)
+            {
+                item.OnCommandExitEvent();
+            }
+        }
+
+        public static void CommmandGuessNumberEventExecuted()
+        {
+            foreach (var item in observableList)
+            {
+                item.OnCommmandGuessNumberEvent();
+            }
+        }
     }
 }
