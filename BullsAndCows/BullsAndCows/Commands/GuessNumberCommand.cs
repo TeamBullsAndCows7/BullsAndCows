@@ -16,6 +16,8 @@ namespace BullsAndCows.Commands
         public void Execute()
         {
             //check number     
+
+            Observer.Observer.CommmandGuessNumberEventExecuted();
         }
     }
 }

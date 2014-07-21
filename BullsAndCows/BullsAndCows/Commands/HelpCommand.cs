@@ -11,6 +11,8 @@ namespace BullsAndCows.Commands
         public void Execute()
         {
             //reveal number
+
+            Observer.Observer.CommandHelpEventExecuted();
         }
     }
 }

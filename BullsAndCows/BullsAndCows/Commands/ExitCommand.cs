@@ -11,6 +11,7 @@ namespace BullsAndCows.Commands
         public void Execute()
         {
             //just exit
+            Observer.Observer.CommandExitEventExecuted();
         }
     }
 }

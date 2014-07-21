@@ -29,27 +29,27 @@
 
         public void OnCommandHelpEvent()
         {
-            Observer.Observer.CommandHelpEventExecuted();
+            throw new NotImplementedException();
         }
 
         public void OnCommandRestartEvent()
         {
-            Observer.Observer.CommandRestartEventExecuted();
+            throw new NotImplementedException();
         }
 
         public void OnCommandTopEvent()
         {
-            Observer.Observer.CommandTopEventExecuted();
+            throw new NotImplementedException();
         }
 
         public void OnCommandExitEvent()
         {
-            Observer.Observer.CommandExitEventExecuted();
+            throw new NotImplementedException();
         }
 
         public void OnCommmandGuessNumberEvent()
         {
-            Observer.Observer.CommmandGuessNumberEventExecuted();
+            throw new NotImplementedException();
         }
     }
 }
