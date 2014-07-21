@@ -10,9 +10,7 @@ namespace BullsAndCows.Commands
 
         public void Execute()
         {
-            //show score board
-
-            Observer.Observer.CommandTopEventExecuted();
+            Observer.Observer.CommandTopExecuted();
         }
     }
 }

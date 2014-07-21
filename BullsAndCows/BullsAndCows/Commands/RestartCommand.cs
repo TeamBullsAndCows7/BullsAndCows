@@ -11,8 +11,7 @@ namespace BullsAndCows.Commands
         public void Execute()
         {
             //restart game
-
-            Observer.Observer.CommandRestartEventExecuted();
+            Observer.Observer.CommandRestartExecuted();
         }
     }
 }

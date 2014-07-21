@@ -21,7 +21,7 @@
             observableList.Remove(observableObject);
         }
 
-        public static void CommandHelpEventExecuted()
+        public static void CommandHelpExecuted()
         {
             foreach (var item in observableList)
             {
@@ -29,7 +29,7 @@
             }
         }
 
-        public static void CommandRestartEventExecuted()
+        public static void CommandRestartExecuted()
         {
             foreach (var item in observableList)
             {
@@ -37,7 +37,7 @@
             }
         }
 
-        public static void CommandTopEventExecuted()
+        public static void CommandTopExecuted()
         {
             foreach (var item in observableList)
             {
@@ -45,7 +45,7 @@
             }
         }
 
-        public static void CommandExitEventExecuted()
+        public static void CommandExitExecuted()
         {
             foreach (var item in observableList)
             {
@@ -53,11 +53,11 @@
             }
         }
 
-        public static void CommmandGuessNumberEventExecuted()
+        public static void CommmandGuessNumberExecuted(int guessNumber)
         {
             foreach (var item in observableList)
             {
-                item.OnCommmandGuessNumberEvent();
+                item.OnCommmandGuessNumberEvent(guessNumber);
             }
         }
     }

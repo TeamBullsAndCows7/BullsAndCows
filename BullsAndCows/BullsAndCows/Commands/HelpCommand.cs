@@ -12,7 +12,7 @@ namespace BullsAndCows.Commands
         {
             //reveal number
 
-            Observer.Observer.CommandHelpEventExecuted();
+            Observer.Observer.CommandHelpExecuted();
         }
     }
 }

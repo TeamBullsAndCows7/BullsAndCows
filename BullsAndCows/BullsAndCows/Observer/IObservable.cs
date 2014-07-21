@@ -10,6 +10,6 @@
 
         void OnCommandExitEvent();
 
-        void OnCommmandGuessNumberEvent();
+        void OnCommmandGuessNumberEvent(int number);
     }
 }

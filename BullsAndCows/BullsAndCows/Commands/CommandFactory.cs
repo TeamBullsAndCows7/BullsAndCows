@@ -41,7 +41,7 @@ namespace BullsAndCows.Commands
                             int userNumber;
                             if (int.TryParse(input, out userNumber))
                             {
-                                command = new GuessNumberCommand();
+                                command = new GuessNumberCommand(userNumber);
                                 break;
                             }
                             else

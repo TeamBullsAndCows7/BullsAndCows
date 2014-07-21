@@ -47,7 +47,7 @@
             throw new NotImplementedException();
         }
 
-        public void OnCommmandGuessNumberEvent()
+        public void OnCommmandGuessNumberEvent(int guessNumber)
         {
             throw new NotImplementedException();
         }

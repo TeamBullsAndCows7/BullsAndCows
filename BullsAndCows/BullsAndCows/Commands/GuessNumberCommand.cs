@@ -8,6 +8,13 @@ namespace BullsAndCows.Commands
 {
     class GuessNumberCommand : ICommand
     {
+        private int guessNumber;
+
+        public GuessNumberCommand(int userNumber)
+        {
+            this.guessNumber = userNumber;
+        } 
+
         public CommandType Type
         {
             get { return CommandType.GuessNumber; }
@@ -15,9 +22,7 @@ namespace BullsAndCows.Commands
 
         public void Execute()
         {
-            //check number     
-
-            Observer.Observer.CommmandGuessNumberEventExecuted();
+            Observer.Observer.CommmandGuessNumberExecuted(this.guessNumber);
         }
     }
 }
