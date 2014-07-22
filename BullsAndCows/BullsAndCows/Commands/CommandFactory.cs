@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BullsAndCows.Commands
+﻿namespace BullsAndCows.Commands
 {
+    using System;
+    using BullsAndCows.Utils;
+
     public static class CommandFactory
     {
         public static ICommand Create(string input)
@@ -36,7 +33,7 @@ namespace BullsAndCows.Commands
                     }
                 default:
                     {
-                        if (input.Length == 4)
+                        if (ValidNumberChecker.IsValidBullsAndCowsNumber(input))
                         {
                             int userNumber;
                             if (int.TryParse(input, out userNumber))

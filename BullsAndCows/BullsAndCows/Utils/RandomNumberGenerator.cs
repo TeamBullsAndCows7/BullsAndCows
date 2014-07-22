@@ -35,6 +35,17 @@
             for (int i = 0; i < NumberLength; i++)
             {
                 int randomDigit = this.random.Next(MinNumber, MaxNumber);
+
+                if (i == 0 && randomDigit == 0)
+                {
+                    randomDigit++;
+                }
+
+                while (sb.ToString().IndexOf(randomDigit.ToString()) >= 0)
+                {
+                    randomDigit = this.random.Next(MinNumber, MaxNumber);
+                }
+
                 sb.Append(randomDigit);
             }
 
