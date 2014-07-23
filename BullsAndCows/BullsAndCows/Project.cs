@@ -1,6 +1,7 @@
 ﻿namespace BullsAndCows
 {
     using BullsAndCows.Utils;
+    using BullsAndCows.Driver;
     //original project code
     using System;
     using System.Collections.Generic;
@@ -9,6 +10,8 @@
     //pochvam da pi6a na c#,egati kEfa!
     public class Proekt
     {
+        /*
+         * 
         static char[] cheatNumber = { 'X', 'X', 'X', 'X' };
         static SortedDictionary<string, int> ScoreBoard = new SortedDictionary<string, int>();     
 
@@ -90,9 +93,13 @@
                 }
             }
         }
+         */
 
         static void Main()
         {
+            IDriver driver = new Driver.Driver();
+            driver.Start();
+            /*
             StartGame();
 
             string secretNumber = RandomNumberGenerator.Instance.Next().ToString();
@@ -178,6 +185,7 @@
                 }
                 Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bulls, cows);
             }
+             */
         }
     }
 }

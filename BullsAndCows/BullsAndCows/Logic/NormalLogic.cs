@@ -2,6 +2,7 @@
 {
     using BullsAndCows.Utils;
     using System;
+    using System.Collections.Generic;
 
     class NormalLogic : ILogic
     {
@@ -12,6 +13,11 @@
         private int attemptsToGuess;
         private int secretNumber;
 
+        private bool run;
+        private char[] hintNumber;
+        private static Messenger.DefaultMessenger messanger = new Messenger.DefaultMessenger();
+        private Messenger.ColoredMessenger message = new Messenger.ColoredMessenger(messanger);
+
         public NormalLogic()
         {
             this.randomNumberGenerator = RandomNumberGenerator.Instance;
@@ -20,36 +26,139 @@
             this.helpCalled = 0;
             this.attemptsToGuess = 0;
             this.secretNumber = this.randomNumberGenerator.Next();
+
+            this.hintNumber = new char[4] { 'X', 'X', 'X', 'X' };
+            this.run = true;
         }
 
         public bool Run
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return this.run;
+            }
         }
 
         public void OnCommandHelpEvent()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            string secretNumberToString = this.secretNumber.ToString();
+
+            helpCalled++;
+
+            while (true)
+            {
+                Random rand = new Random();
+                int index = rand.Next(0, 4);
+
+                if (this.hintNumber[index] == 'X')
+                {
+                    this.hintNumber[index] = secretNumberToString[index];
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            string revieldNumber = new string(this.hintNumber);
+            //Console.WriteLine("The number looks like {0}", revieldNumber);
+            message.ShowRevealNumberMessage(revieldNumber);
         }
 
         public void OnCommandRestartEvent()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            //this.randomNumberGenerator = RandomNumberGenerator.Instance;
+            //this.scoreBoard = new ScoreBoard();
+
+            this.helpCalled = 0;
+            this.attemptsToGuess = 0;
+            this.secretNumber = this.randomNumberGenerator.Next();
+
+            this.run = true;
         }
 
         public void OnCommandTopEvent()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            this.scoreBoard.ToString();
         }
 
         public void OnCommandExitEvent()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            //Console.WriteLine("Good bye!");
+            message.ShowExitMessage();
+            this.run = false;
         }
 
         public void OnCommmandGuessNumberEvent(int guessNumber)
         {
-            throw new NotImplementedException();
+            List<int> bullIndexes = new List<int>();
+            List<int> cowIndexes = new List<int>();
+            string guessNumberToString = guessNumber.ToString();
+            string secretNumberToString = this.secretNumber.ToString();
+
+            this.attemptsToGuess++;
+
+            if (guessNumberToString.Equals(secretNumberToString))
+            {
+                //message.ShowWinGameMessage();
+                if (this.helpCalled > 0)
+                {
+                    Console.WriteLine("You called for help {1} time(s) and you are not allowed to enter the top scoreboard.", this.helpCalled);
+                    //message.ShowWinGameMessage(this.attemptsToGuess, this.helpCalled);
+                }
+                else
+                {
+                    Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", this.attemptsToGuess);
+                    //message.ShowWinGameMessage(this.attemptsToGuess);
+
+                    Console.Write("Please enter your name for the top scoreboard: ");
+
+                    string player = Console.ReadLine();
+
+                    this.scoreBoard.Enter(this.attemptsToGuess, player);
+                    this.scoreBoard.ToString();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < secretNumberToString.Length; i++)
+                {
+                    if (guessNumberToString[i].Equals(secretNumberToString[i]))
+                    {
+                        bullIndexes.Add(i);
+                        //bulls++;
+                    }
+                }
+
+                for (int i = 0; i < guessNumberToString.Length; i++)
+                {
+                    for (int j = 0; j < secretNumberToString.Length; j++)
+                    {
+                        if ((i != j) && !bullIndexes.Contains(j) && !cowIndexes.Contains(j) && !bullIndexes.Contains(i))
+                        {
+                            if (guessNumberToString[i].Equals(secretNumberToString[j]))
+                            {
+                                cowIndexes.Add(j);
+                                //cows++;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullIndexes.Count, cowIndexes.Count);
+                //message.ShowWrongGuessMessage(bullIndexes.Count, cowIndexes.Count);
+            }
+
+            //throw new NotImplementedException();
         }
     }
 }
