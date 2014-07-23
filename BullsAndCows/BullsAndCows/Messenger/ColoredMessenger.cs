@@ -34,37 +34,37 @@
         public override void ShowWrongGuessMessage(int bulls, int cows)
         {
             Console.ForegroundColor = ColoredMessenger.ErrorColor;
-            base.ShowWrongGuessMessage(bulls, cows);
+            base.Messenger.ShowWrongGuessMessage(bulls, cows);
         }
 
         public override void ShowTopScoreBoardEmptyMessage()
         {
             Console.ForegroundColor = ColoredMessenger.ErrorColor;
-            base.ShowTopScoreBoardEmptyMessage();
+            base.Messenger.ShowTopScoreBoardEmptyMessage();
         }
 
         public override void ShowInputErrorMessage()
         {
             Console.ForegroundColor = ColoredMessenger.ErrorColor;
-            base.ShowInputErrorMessage();
+            base.Messenger.ShowInputErrorMessage();
         }
 
         public override void ShowWinGameMessage(int attemps)
         {
             Console.ForegroundColor = ColoredMessenger.GameWonColor;
-            base.ShowWinGameMessage(attemps);
+            base.Messenger.ShowWinGameMessage(attemps);
         }
 
         public override void ShowWinGameMessage(int guessAttemps, int helpCalled)
         {
             Console.ForegroundColor = ColoredMessenger.GameWonColor;
-            base.ShowWinGameMessage(guessAttemps, helpCalled);
+            base.Messenger.ShowWinGameMessage(guessAttemps, helpCalled);
         }
 
         public override void ShowExitMessage()
         {
             Console.ForegroundColor = ColoredMessenger.DefaultColor;
-            base.ShowExitMessage();
+            base.Messenger.ShowExitMessage();
         }
     }
 }
