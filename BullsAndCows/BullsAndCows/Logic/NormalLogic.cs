@@ -11,7 +11,7 @@
 
         private int helpCalled;
         private int attemptsToGuess;
-        private string secretNumber;
+        private int secretNumber;
 
         private bool run;
         private char[] hintNumber;
@@ -37,7 +37,7 @@
         public void OnCommandHelpEvent()
         {
             //throw new NotImplementedException();
-            //string secretNumberToString = this.secretNumber;
+            string secretNumberToString = this.secretNumber.ToString();
 
             helpCalled++;
 
@@ -49,7 +49,7 @@
 
                 if (this.hintNumber[index] == 'X')
                 {
-                    this.hintNumber[index] = secretNumber[index];
+                    this.hintNumber[index] = secretNumberToString[index];
                     break;
                 }
                 else
@@ -101,16 +101,16 @@
             this.run = false;
         }
 
-        public void OnCommmandGuessNumberEvent(string guessNumber)
+        public void OnCommmandGuessNumberEvent(int guessNumber)
         {
             List<int> bullIndexes = new List<int>();
             List<int> cowIndexes = new List<int>();
-            //string guessNumberToString = guessNumber.ToString();
-            //string secretNumberToString = this.secretNumber;
+            string guessNumberToString = guessNumber.ToString();
+            string secretNumberToString = this.secretNumber.ToString();
 
             this.attemptsToGuess++;
 
-            if (guessNumber.Equals(this.secretNumber))
+            if (guessNumberToString.Equals(secretNumberToString))
             {
                 //message.ShowWinGameMessage();
                 if (this.helpCalled > 0)
@@ -137,22 +137,22 @@
             }
             else
             {
-                for (int i = 0; i < this.secretNumber.Length; i++)
+                for (int i = 0; i < secretNumberToString.Length; i++)
                 {
-                    if (guessNumber[i].Equals(this.secretNumber[i]))
+                    if (guessNumberToString[i].Equals(secretNumberToString[i]))
                     {
                         bullIndexes.Add(i);
                         //bulls++;
                     }
                 }
 
-                for (int i = 0; i < guessNumber.Length; i++)
+                for (int i = 0; i < guessNumberToString.Length; i++)
                 {
-                    for (int j = 0; j < this.secretNumber.Length; j++)
+                    for (int j = 0; j < secretNumberToString.Length; j++)
                     {
                         if ((i != j) && !bullIndexes.Contains(j) && !cowIndexes.Contains(j) && !bullIndexes.Contains(i))
                         {
-                            if (guessNumber[i].Equals(this.secretNumber[j]))
+                            if (guessNumberToString[i].Equals(secretNumberToString[j]))
                             {
                                 cowIndexes.Add(j);
                                 //cows++;

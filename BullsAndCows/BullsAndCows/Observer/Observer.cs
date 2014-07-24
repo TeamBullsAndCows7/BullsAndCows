@@ -53,7 +53,7 @@
             }
         }
 
-        public static void CommmandGuessNumberExecuted(string guessNumber)
+        public static void CommmandGuessNumberExecuted(int guessNumber)
         {
             foreach (var item in observableList)
             {

@@ -35,19 +35,16 @@
                     {
                         if (ValidNumberChecker.IsValidBullsAndCowsNumber(input))
                         {
-                            //int userNumber;
-                            //if (int.TryParse(input, out userNumber))
-                            //{
-                            //    command = new GuessNumberCommand(input);
-                            //    break;
-                            //}
-                            //else
-                            //{
-                            //    throw new ArgumentException("Wrong command, please try again.");
-                            //}   
-
-                            command = new GuessNumberCommand(input);
-                            break;
+                            int userNumber;
+                            if (int.TryParse(input, out userNumber))
+                            {
+                                command = new GuessNumberCommand(userNumber);
+                                break;
+                            }
+                            else
+                            {
+                                throw new ArgumentException("Wrong command, please try again.");
+                            }   
                         }
                         else
                         {
