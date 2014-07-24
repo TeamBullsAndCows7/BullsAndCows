@@ -8,9 +8,9 @@ namespace BullsAndCows.Commands
 {
     class GuessNumberCommand : ICommand
     {
-        private int guessNumber;
+        private string guessNumber;
 
-        public GuessNumberCommand(int userNumber)
+        public GuessNumberCommand(string userNumber)
         {
             this.guessNumber = userNumber;
         } 

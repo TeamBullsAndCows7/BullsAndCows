@@ -6,10 +6,11 @@
         void ShowRequestInputMessage();
         void ShowRevealNumberMessage(string number);
         void ShowWrongGuessMessage(int bulls, int cows);
-        void ShowTopScoreBoardEmptyMessage();
+        void ShowTopScoreBoardMessage(string message);
         void ShowInputErrorMessage();
         void ShowWinGameMessage(int guessAttemps);
         void ShowWinGameMessage(int guessAttemps, int helpCalled);
+        void ShowEnterYourNameMessage();
         void ShowExitMessage();
     }
 }

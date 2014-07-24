@@ -20,9 +20,7 @@
 
         public static bool IsValidBullsAndCowsNumber(string number)
         {
-            bool isValid = number.Length == 4 &&
-                number[0] != '0' &&
-                CheckIfNumberConsistsOfDifferentDigits(number);
+            bool isValid = number.Length == 4 && CheckIfNumberConsistsOfDifferentDigits(number);
 
             return isValid;
         }

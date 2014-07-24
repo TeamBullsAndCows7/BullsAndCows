@@ -28,7 +28,7 @@
             }
         }
 
-        public int Next()
+        public string Next()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -36,10 +36,10 @@
             {
                 int randomDigit = this.random.Next(MinNumber, MaxNumber);
 
-                if (i == 0 && randomDigit == 0)
-                {
-                    randomDigit++;
-                }
+                //if (i == 0 && randomDigit == 0)
+                //{
+                //    randomDigit++;
+                //}
 
                 while (sb.ToString().IndexOf(randomDigit.ToString()) >= 0)
                 {
@@ -49,9 +49,10 @@
                 sb.Append(randomDigit);
             }
 
-            int generatedNumber = int.Parse(sb.ToString());
+            //int generatedNumber = int.Parse(sb.ToString());
 
-            return generatedNumber;
+            //return generatedNumber;
+            return sb.ToString();
         }
     }
 }

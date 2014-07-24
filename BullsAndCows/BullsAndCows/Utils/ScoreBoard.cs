@@ -65,6 +65,8 @@
         {
             StringBuilder sb = new StringBuilder();
 
+            sb.Append("\nTop Score Board:\n");
+
             if (this.scoresList.Count == 0)
             {
                 sb.Append("\n-- Score Board is Empty --\n");
@@ -74,7 +76,8 @@
                 int rank = 1;
                 foreach (var item in this.scoresList)
                 {
-                    sb.AppendFormat("{0}. {1} --> {2} guesses", rank, item.Key, item.Value);
+                    // TODO - fix the bug with SortedDictionary - cannot have several player with same score
+                    sb.AppendFormat("{0}. {1} --> {2} guesses\n", rank, item.Key, item.Value);
                     ++rank;
                 }
             }

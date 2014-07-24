@@ -34,7 +34,8 @@
 
             while (this.gameLogic.Run)
             {
-                Console.Write("Enter your guess or command: ");
+                //Console.Write("Enter your guess or command: ");
+                message.Messenger.ShowRequestInputMessage();
                 string userInput = Console.ReadLine();
 
                 try

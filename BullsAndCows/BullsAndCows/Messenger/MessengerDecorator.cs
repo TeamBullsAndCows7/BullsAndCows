@@ -29,9 +29,9 @@
             this.ShowWrongGuessMessage(bulls, cows);
         }
 
-        public virtual void ShowTopScoreBoardEmptyMessage()
+        public virtual void ShowTopScoreBoardMessage(string message)
         {
-            this.ShowTopScoreBoardEmptyMessage();
+            this.ShowTopScoreBoardMessage(message);
         }
 
         public virtual void ShowInputErrorMessage()
@@ -47,6 +47,11 @@
         public virtual void ShowWinGameMessage(int guessAttemps, int helpCalled)
         {
             this.ShowWinGameMessage(guessAttemps, helpCalled);
+        }
+
+        public virtual void ShowEnterYourNameMessage()
+        {
+            this.ShowEnterYourNameMessage();
         }
 
         public virtual void ShowExitMessage()

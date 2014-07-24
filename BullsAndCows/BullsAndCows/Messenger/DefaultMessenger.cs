@@ -29,9 +29,9 @@
             Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bulls, cows);
         }
 
-        public void ShowTopScoreBoardEmptyMessage()
+        public void ShowTopScoreBoardMessage(string message)
         {
-            Console.WriteLine("Top scoreboard is empty.");
+            Console.WriteLine(message);
         }
 
         public void ShowInputErrorMessage()
@@ -47,7 +47,12 @@
         public void ShowWinGameMessage(int guessAttemps, int helpCalled)
         {
             this.ShowWinGameMessage(guessAttemps);
-            Console.WriteLine("You called for help {1} time(s) and you are not allowed to enter the top scoreboard.", helpCalled);
+            Console.WriteLine("You called for help {0} time(s) and you are not allowed to enter the top scoreboard.", helpCalled);
+        }
+
+        public void ShowEnterYourNameMessage()
+        {
+            Console.Write("Please enter your name for the top scoreboard: ");
         }
 
         public void ShowExitMessage()
