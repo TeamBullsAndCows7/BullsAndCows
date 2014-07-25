@@ -1,65 +1,43 @@
 ﻿namespace BullsAndCows.Utils
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     public class ScoreBoard
     {
         private const int MaxScoresNumber = 5;
-        private SortedDictionary<int, string> scoresList;
+        private SortedDictionary<int, List<string>> scoresList;
 
         public ScoreBoard()
         {
-            this.scoresList = new SortedDictionary<int, string>();
+            this.scoresList = new SortedDictionary<int, List<string>>();
         }
 
-        public void Enter(int score, string player)
+        public bool HasToSaveScore(int score)
         {
-            this.scoresList.Add(score, player);
+            if (this.scoresList.Last().Key < score)
+            {
+                return false;
+            }
 
-            
-            //if (score > lastPlayerScore)
-            //{
-            //    lastPlayerScore = score;
-            //}
-
-            //if (topScoreBoard.Count > 5)
-            //{
-            //    foreach (KeyValuePair<string, int> player in topScoreBoard)
-            //    {
-            //        if (player.Value == lastPlayerScore)
-            //        {
-            //            topScoreBoard.Remove(player.Key);
-            //            break;
-            //        }
-            //    }
-            //}
+            return true;
         }
 
-        //public int SortDictionary(KeyValuePair<int, string> a, KeyValuePair<int, string> b)
-        //{
-        //    return a.Key.CompareTo(b.Key);
-        //}
-
-        //public void SortScoreBoard()
-        //{
-        //    foreach (var pair in topScoreBoard)
-        //    {
-        //        sortedDict.Add(new KeyValuePair<string, int>(pair.Key, pair.Value));
-        //    }
-
-        //    sortedDict.Sort(SortDictionary);
-        //    Console.WriteLine("Scoreboard: ");
-        //    int counter = 0;
-
-        //    foreach (KeyValuePair<string, int> player in sortedDict)
-        //    {
-        //        counter++;
-        //        Console.WriteLine("{0}. {1} --> {2} guesses", counter, player.Key, player.Value);
-        //    }
-
-        //    sortedDict.Clear();
-        //}
+        public void Enter(int score, string playerName)
+        {
+            if (this.scoresList.Keys.Contains(score))
+            {
+                if (!this.scoresList[score].Contains(playerName))
+                {
+                    this.scoresList[score].Add(playerName);
+                }
+            }
+            else
+            {
+                this.scoresList.Add(score, new List<string>() { playerName });
+            }
+        }
 
         public override string ToString()
         {
@@ -75,9 +53,12 @@
             {
                 int rank = 1;
                 foreach (var item in this.scoresList)
-                {
-                    // TODO - fix the bug with SortedDictionary - cannot have several player with same score
-                    sb.AppendFormat("{0}. {1} --> {2} guesses\n", rank, item.Key, item.Value);
+                {                   
+                    var playerNames = item.Value;
+                    foreach (var name in playerNames)
+	                {
+                        sb.AppendFormat("{0}. {1} --> {2} guesses\n", rank, item.Key, name);
+	                }
                     ++rank;
                 }
             }
