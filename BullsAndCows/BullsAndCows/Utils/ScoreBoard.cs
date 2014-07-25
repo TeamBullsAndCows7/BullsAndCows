@@ -57,7 +57,7 @@
                     var playerNames = item.Value;
                     foreach (var name in playerNames)
 	                {
-                        sb.AppendFormat("{0}. {1} --> {2} guesses\n", rank, item.Key, name);
+                        sb.AppendFormat("{0}. {1} --> {2} guesses\n", rank, name, item.Key);
 	                }
                     ++rank;
                 }
