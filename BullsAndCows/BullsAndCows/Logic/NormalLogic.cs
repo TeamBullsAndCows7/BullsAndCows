@@ -15,8 +15,7 @@
 
         private bool run;
         private char[] hintNumber;
-        private static Messenger.DefaultMessenger messanger = new Messenger.DefaultMessenger();
-        private Messenger.ColoredMessenger message = new Messenger.ColoredMessenger(messanger);
+        private Messenger.ColoredMessenger messanger = new Messenger.ColoredMessenger(new Messenger.DefaultMessenger());
 
         public NormalLogic()
         {
@@ -36,14 +35,12 @@
 
         public void OnCommandHelpEvent()
         {
-            //throw new NotImplementedException();
             string secretNumberToString = this.secretNumber.ToString();
 
             helpCalled++;
 
             while (helpCalled <= 4)
             {
-                // TODO - use RandomNumberGenerator
                 Random rand = new Random();
                 int index = rand.Next(0, 4);
 
@@ -59,17 +56,11 @@
             }
 
             string revieldNumber = new string(this.hintNumber);
-            //Console.WriteLine("The number looks like {0}", revieldNumber);
-            message.ShowRevealNumberMessage(revieldNumber);
+            messanger.ShowRevealNumberMessage(revieldNumber);
         }
 
         public void OnCommandRestartEvent()
         {
-            //throw new NotImplementedException();
-
-            //this.randomNumberGenerator = RandomNumberGenerator.Instance;
-            //this.scoreBoard = new ScoreBoard();
-
             ResetGameVariables();
         }
 
@@ -80,24 +71,16 @@
             this.secretNumber = this.randomNumberGenerator.Next();
             this.hintNumber = new char[4] { 'X', 'X', 'X', 'X' };
             this.run = true;
-
-            Console.WriteLine(this.secretNumber); // TODO - remove in final version
         }
 
         public void OnCommandTopEvent()
         {
-            //throw new NotImplementedException();
-
-            //this.scoreBoard.ToString();
-            message.Messenger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
+            messanger.Messenger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
         }
 
         public void OnCommandExitEvent()
         {
-            //throw new NotImplementedException();
-
-            //Console.WriteLine("Good bye!");
-            message.ShowExitMessage();
+            messanger.ShowExitMessage();
             this.run = false;
         }
 
@@ -112,27 +95,22 @@
 
             if (guessNumberToString.Equals(secretNumberToString))
             {
-                //message.ShowWinGameMessage();
                 if (this.helpCalled > 0)
                 {
-                    //Console.WriteLine("You called for help {1} time(s) and you are not allowed to enter the top scoreboard.", this.helpCalled);
-                    message.Messenger.ShowWinGameMessage(this.attemptsToGuess, this.helpCalled);
+                    messanger.Messenger.ShowWinGameMessage(this.attemptsToGuess, this.helpCalled);
                 }
                 else
                 {
-                    //Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", this.attemptsToGuess);
-                    message.Messenger.ShowWinGameMessage(this.attemptsToGuess);
+                    messanger.Messenger.ShowWinGameMessage(this.attemptsToGuess);
 
-                    //Console.Write("Please enter your name for the top scoreboard: ");
-                    message.Messenger.ShowEnterYourNameMessage();
+                    messanger.Messenger.ShowEnterYourNameMessage();
 
                     string player = Console.ReadLine();
 
                     this.scoreBoard.Enter(this.attemptsToGuess, player);
-                    message.Messenger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
+                    messanger.Messenger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
                 }
 
-                // restart the game - TODO - probably is not a good idea to be here...
                 ResetGameVariables();
             }
             else
@@ -142,7 +120,6 @@
                     if (guessNumberToString[i].Equals(secretNumberToString[i]))
                     {
                         bullIndexes.Add(i);
-                        //bulls++;
                     }
                 }
 
@@ -155,18 +132,14 @@
                             if (guessNumberToString[i].Equals(secretNumberToString[j]))
                             {
                                 cowIndexes.Add(j);
-                                //cows++;
                                 break;
                             }
                         }
                     }
                 }
 
-                //Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullIndexes.Count, cowIndexes.Count);
-                message.Messenger.ShowWrongGuessMessage(bullIndexes.Count, cowIndexes.Count);
+                messanger.Messenger.ShowWrongGuessMessage(bullIndexes.Count, cowIndexes.Count);
             }
-
-            //throw new NotImplementedException();
         }
     }
 }
