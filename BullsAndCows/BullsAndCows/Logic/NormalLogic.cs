@@ -109,7 +109,11 @@
 
                     string player = Console.ReadLine();
 
-                    this.scoreBoard.Enter(this.attemptsToGuess, player);
+                    if (this.scoreBoard.HasToSaveScore(this.attemptsToGuess))
+                    {
+                        this.scoreBoard.Enter(this.attemptsToGuess, player);
+                    }
+                    
                     this.messanger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
                 }
 
@@ -129,7 +133,10 @@
                 {
                     for (int j = 0; j < secretNumberToString.Length; j++)
                     {
-                        if ((i != j) && !bullIndexes.Contains(j) && !cowIndexes.Contains(j) && !bullIndexes.Contains(i))
+                        if ((i != j) && 
+                            !bullIndexes.Contains(j) && 
+                            !cowIndexes.Contains(j) && 
+                            !bullIndexes.Contains(i))
                         {
                             if (guessNumberToString[i].Equals(secretNumberToString[j]))
                             {
