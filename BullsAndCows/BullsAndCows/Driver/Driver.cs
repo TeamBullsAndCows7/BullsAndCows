@@ -24,7 +24,7 @@
 
             while (this.gameLogic.Run)
             {
-                messanger.Messenger.ShowRequestInputMessage();
+                messanger.ShowRequestInputMessage();
                 string userInput = Console.ReadLine();
 
                 try
