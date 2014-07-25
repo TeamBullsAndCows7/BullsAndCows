@@ -20,11 +20,11 @@
         public void Start()
         {
             Observer.Attach(this.gameLogic);
-            messanger.ShowStartGameMessage();
+            this.messanger.ShowStartGameMessage();
 
             while (this.gameLogic.Run)
             {
-                messanger.ShowRequestInputMessage();
+                this.messanger.ShowRequestInputMessage();
                 string userInput = Console.ReadLine();
 
                 try
@@ -32,9 +32,9 @@
                     ICommand command = CommandFactory.Create(userInput);
                     command.Execute();
                 }
-                catch (ArgumentException argumentExc)
+                catch (ArgumentException ex)
                 {
-                    Console.WriteLine(argumentExc.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
