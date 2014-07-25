@@ -18,6 +18,15 @@
         private static Messenger.DefaultMessenger messanger = new Messenger.DefaultMessenger();
         private Messenger.ColoredMessenger message = new Messenger.ColoredMessenger(messanger);
 
+        private void ResetGameVariables()
+        {
+            this.helpCalled = 0;
+            this.attemptsToGuess = 0;
+            this.secretNumber = this.randomNumberGenerator.Next();
+            this.hintNumber = new char[4] { 'X', 'X', 'X', 'X' };
+            this.run = true;
+        }
+
         public NormalLogic()
         {
             this.randomNumberGenerator = RandomNumberGenerator.Instance;
@@ -36,14 +45,12 @@
 
         public void OnCommandHelpEvent()
         {
-            //throw new NotImplementedException();
             string secretNumberToString = this.secretNumber.ToString();
 
             helpCalled++;
 
             while (helpCalled <= 4)
             {
-                // TODO - use RandomNumberGenerator
                 Random rand = new Random();
                 int index = rand.Next(0, 4);
 
@@ -65,23 +72,7 @@
 
         public void OnCommandRestartEvent()
         {
-            //throw new NotImplementedException();
-
-            //this.randomNumberGenerator = RandomNumberGenerator.Instance;
-            //this.scoreBoard = new ScoreBoard();
-
             ResetGameVariables();
-        }
-
-        private void ResetGameVariables()
-        {
-            this.helpCalled = 0;
-            this.attemptsToGuess = 0;
-            this.secretNumber = this.randomNumberGenerator.Next();
-            this.hintNumber = new char[4] { 'X', 'X', 'X', 'X' };
-            this.run = true;
-
-            Console.WriteLine(this.secretNumber); // TODO - remove in final version
         }
 
         public void OnCommandTopEvent()
