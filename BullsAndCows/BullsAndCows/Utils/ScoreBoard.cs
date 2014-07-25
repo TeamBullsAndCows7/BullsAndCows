@@ -16,7 +16,7 @@
 
         public bool HasToSaveScore(int score)
         {
-            if (this.scoresList.Last().Key < score)
+            if (this.scoresList.Count == MaxScoresNumber && this.scoresList.Last().Key < score)
             {
                 return false;
             }
@@ -53,12 +53,12 @@
             {
                 int rank = 1;
                 foreach (var item in this.scoresList)
-                {                   
+                {
                     var playerNames = item.Value;
                     foreach (var name in playerNames)
-	                {
+                    {
                         sb.AppendFormat("{0}. {1} --> {2} guesses\n", rank, name, item.Key);
-	                }
+                    }
                     ++rank;
                 }
             }
