@@ -1,5 +1,6 @@
 ﻿namespace BullsAndCows.Logic
 {
+    using BullsAndCows.Messenger;
     using BullsAndCows.Utils;
     using System;
     using System.Collections.Generic;
@@ -8,15 +9,14 @@
     {
         private RandomNumberGenerator randomNumberGenerator;
         private ScoreBoard scoreBoard;
-
+        private ColoredMessenger messanger;
+        
         private int helpCalled;
         private int attemptsToGuess;
         private int secretNumber;
 
         private bool run;
-        private char[] hintNumber;
-        private static Messenger.DefaultMessenger messanger = new Messenger.DefaultMessenger();
-        private Messenger.ColoredMessenger message = new Messenger.ColoredMessenger(messanger);
+        private char[] hintNumber;  
 
         private void ResetGameVariables()
         {
@@ -31,8 +31,9 @@
         {
             this.randomNumberGenerator = RandomNumberGenerator.Instance;
             this.scoreBoard = new ScoreBoard();
+            this.messanger = new ColoredMessenger(new DefaultMessenger());
 
-            ResetGameVariables();
+            this.ResetGameVariables();
         }
 
         public bool Run
@@ -66,29 +67,22 @@
             }
 
             string revieldNumber = new string(this.hintNumber);
-            //Console.WriteLine("The number looks like {0}", revieldNumber);
-            message.ShowRevealNumberMessage(revieldNumber);
+            this.messanger.ShowRevealNumberMessage(revieldNumber);
         }
 
         public void OnCommandRestartEvent()
         {
-            ResetGameVariables();
+            this.ResetGameVariables();
         }
 
         public void OnCommandTopEvent()
         {
-            //throw new NotImplementedException();
-
-            //this.scoreBoard.ToString();
-            message.Messenger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
+            this.messanger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
         }
 
         public void OnCommandExitEvent()
         {
-            //throw new NotImplementedException();
-
-            //Console.WriteLine("Good bye!");
-            message.ShowExitMessage();
+            this.messanger.ShowExitMessage();
             this.run = false;
         }
 
@@ -103,27 +97,22 @@
 
             if (guessNumberToString.Equals(secretNumberToString))
             {
-                //message.ShowWinGameMessage();
                 if (this.helpCalled > 0)
                 {
-                    //Console.WriteLine("You called for help {1} time(s) and you are not allowed to enter the top scoreboard.", this.helpCalled);
-                    message.Messenger.ShowWinGameMessage(this.attemptsToGuess, this.helpCalled);
+                    this.messanger.ShowWinGameMessage(this.attemptsToGuess, this.helpCalled);
                 }
                 else
                 {
-                    //Console.WriteLine("Congratulations! You guessed the secret number in {0} attempts.", this.attemptsToGuess);
-                    message.Messenger.ShowWinGameMessage(this.attemptsToGuess);
+                    this.messanger.ShowWinGameMessage(this.attemptsToGuess);
 
-                    //Console.Write("Please enter your name for the top scoreboard: ");
-                    message.Messenger.ShowEnterYourNameMessage();
+                    this.messanger.ShowEnterYourNameMessage();
 
                     string player = Console.ReadLine();
 
                     this.scoreBoard.Enter(this.attemptsToGuess, player);
-                    message.Messenger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
+                    this.messanger.ShowTopScoreBoardMessage(this.scoreBoard.ToString());
                 }
 
-                // restart the game - TODO - probably is not a good idea to be here...
                 ResetGameVariables();
             }
             else
@@ -133,7 +122,6 @@
                     if (guessNumberToString[i].Equals(secretNumberToString[i]))
                     {
                         bullIndexes.Add(i);
-                        //bulls++;
                     }
                 }
 
@@ -146,18 +134,14 @@
                             if (guessNumberToString[i].Equals(secretNumberToString[j]))
                             {
                                 cowIndexes.Add(j);
-                                //cows++;
                                 break;
                             }
                         }
                     }
                 }
 
-                //Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullIndexes.Count, cowIndexes.Count);
-                message.Messenger.ShowWrongGuessMessage(bullIndexes.Count, cowIndexes.Count);
+                this.messanger.ShowWrongGuessMessage(bullIndexes.Count, cowIndexes.Count);
             }
-
-            //throw new NotImplementedException();
         }
     }
 }
