@@ -49,5 +49,16 @@ namespace BullsAndCows.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestScoreBoardEmptyList()
+        {
+            ScoreBoard sc = new ScoreBoard();
+
+            string actual = sc.ToString();
+            string expected = "\nTop Score Board:\n\n-- Score Board is Empty --\n";
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
