@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BullsAndCows.Commands
+﻿namespace BullsAndCows.Commands
 {
-    class GuessNumberCommand : ICommand
+    public class GuessNumberCommand : ICommand
     {
         private int guessNumber;
 

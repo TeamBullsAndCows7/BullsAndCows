@@ -1,5 +1,4 @@
-﻿
-namespace BullsAndCows.Commands
+﻿namespace BullsAndCows.Commands
 {
     public enum CommandType
     {

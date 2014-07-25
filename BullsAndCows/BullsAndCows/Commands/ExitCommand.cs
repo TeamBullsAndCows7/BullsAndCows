@@ -1,7 +1,6 @@
-﻿
-namespace BullsAndCows.Commands
+﻿namespace BullsAndCows.Commands
 {
-    class ExitCommand : ICommand
+    public class ExitCommand : ICommand
     {
         public CommandType Type
         {
@@ -10,7 +9,6 @@ namespace BullsAndCows.Commands
 
         public void Execute()
         {
-            //just exit
             Observer.Observer.CommandExitExecuted();
         }
     }

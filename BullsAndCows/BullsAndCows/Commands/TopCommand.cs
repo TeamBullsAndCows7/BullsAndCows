@@ -1,7 +1,6 @@
-﻿
-namespace BullsAndCows.Commands
+﻿namespace BullsAndCows.Commands
 {
-    class TopCommand : ICommand
+    public class TopCommand : ICommand
     {
         public CommandType Type
         {

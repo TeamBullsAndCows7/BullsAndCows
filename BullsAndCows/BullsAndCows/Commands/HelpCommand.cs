@@ -1,7 +1,6 @@
-﻿
-namespace BullsAndCows.Commands
+﻿namespace BullsAndCows.Commands
 {
-    class HelpCommand : ICommand
+    public class HelpCommand : ICommand
     {
         public CommandType Type
         {
@@ -10,8 +9,6 @@ namespace BullsAndCows.Commands
 
         public void Execute()
         {
-            //reveal number
-
             Observer.Observer.CommandHelpExecuted();
         }
     }

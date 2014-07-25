@@ -1,7 +1,6 @@
-﻿
-namespace BullsAndCows.Commands
+﻿namespace BullsAndCows.Commands
 {
-    class RestartCommand : ICommand
+    public class RestartCommand : ICommand
     {
         public CommandType Type 
         {
@@ -10,7 +9,6 @@ namespace BullsAndCows.Commands
 
         public void Execute()
         {
-            //restart game
             Observer.Observer.CommandRestartExecuted();
         }
     }
