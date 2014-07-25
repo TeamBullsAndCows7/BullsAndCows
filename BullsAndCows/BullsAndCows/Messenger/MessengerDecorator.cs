@@ -7,7 +7,7 @@
             this.Messenger = messenger;
         }
 
-        public IMessenger Messenger { get; private set; }
+        protected IMessenger Messenger { get; private set; }
 
         public virtual void ShowStartGameMessage()
         {
