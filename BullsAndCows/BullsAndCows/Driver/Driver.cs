@@ -2,40 +2,29 @@
 {
     using BullsAndCows.Commands;
     using BullsAndCows.Logic;
-    using BullsAndCows.Utils;
+    using BullsAndCows.Messenger;
+    using BullsAndCows.Observer;
     using System;
 
     public class Driver : IDriver
     {
         private ILogic gameLogic;
-
-        private static Messenger.DefaultMessenger messanger = new Messenger.DefaultMessenger();
-        private Messenger.ColoredMessenger message = new Messenger.ColoredMessenger(messanger);
+        private ColoredMessenger messanger;
 
         public Driver()
         {
             this.gameLogic = new NormalLogic();
-            Observer.Observer.Attach(this.gameLogic);
+            this.messanger = new ColoredMessenger(new DefaultMessenger());           
         }
 
         public void Start()
         {
-            /*
-            Console.WriteLine("Welcome to “Bulls and Cows” game.\nPlease try to guess my secret 4-digit number.\n");
-            Console.WriteLine("Use one of the following command: ");
-            Console.WriteLine("\r'top' - view the top scoreboard.");
-            Console.WriteLine("\r'restart' - start a new game.");
-            Console.WriteLine("\r'help' - reveal a number.");
-            Console.WriteLine("\r'exit' - quit the game.");
-             */
-
-            //not sure
-            message.ShowStartGameMessage();
+            Observer.Attach(this.gameLogic);
+            messanger.ShowStartGameMessage();
 
             while (this.gameLogic.Run)
             {
-                //Console.Write("Enter your guess or command: ");
-                message.Messenger.ShowRequestInputMessage();
+                messanger.Messenger.ShowRequestInputMessage();
                 string userInput = Console.ReadLine();
 
                 try
@@ -52,8 +41,7 @@
 
         public void Stop()
         {
-            //not sure
-            //Observer.Observer.Dettach(this.gameLogic);
+            Observer.Dettach(this.gameLogic);
         }
 
         public void Restart()
