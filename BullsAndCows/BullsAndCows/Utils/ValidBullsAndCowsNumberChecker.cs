@@ -1,6 +1,6 @@
 ﻿namespace BullsAndCows.Utils
 {
-    public class ValidNumberChecker
+    public class ValidBullsAndCowsNumberChecker
     {
         public static bool IsValidBullsAndCowsNumber(string number)
         {

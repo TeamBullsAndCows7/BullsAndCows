@@ -33,7 +33,7 @@
                     }
                 default:
                     {
-                        if (ValidNumberChecker.IsValidBullsAndCowsNumber(input))
+                        if (ValidBullsAndCowsNumberChecker.IsValidBullsAndCowsNumber(input))
                         {
                             int userNumber;
                             if (int.TryParse(input, out userNumber))
