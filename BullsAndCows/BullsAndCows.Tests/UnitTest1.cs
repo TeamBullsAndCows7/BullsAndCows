@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BullsAndCows.Utils;
+using BullsAndCows.Logic;
 
 namespace BullsAndCows.Tests
 {
@@ -59,6 +60,20 @@ namespace BullsAndCows.Tests
             string expected = "\nTop Score Board:\n\n-- Score Board is Empty --\n";
 
             Assert.AreEqual(expected, actual);
+        }
+
+        public void CheckTimesCommandHelpEvent()
+        {
+            string errorMessage = "You have already cheated all four digits";
+            NormalLogic newChecker = new NormalLogic();
+            try
+            {
+                newChecker.OnCommandHelpEvent();
+            }
+            catch (Exception e)
+            { 
+                Assert.Fail(e.Message, errorMessage);
+            }
         }
     }
 }

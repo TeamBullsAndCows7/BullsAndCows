@@ -4,7 +4,7 @@
 
     public class ColoredMessenger : MessengerDecorator
     {
-        private const ConsoleColor DefaultColor = ConsoleColor.DarkYellow;
+        private const ConsoleColor DefaultColor = ConsoleColor.Cyan;
         private const ConsoleColor ErrorColor = ConsoleColor.Red;
         private const ConsoleColor GameWonColor = ConsoleColor.Green;
 

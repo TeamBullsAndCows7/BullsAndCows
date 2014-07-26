@@ -5,7 +5,7 @@
     using System;
     using System.Collections.Generic;
 
-    class NormalLogic : ILogic
+    public class NormalLogic : ILogic
     {
         private RandomNumberGenerator randomNumberGenerator;
         private ScoreBoard scoreBoard;
@@ -64,6 +64,11 @@
                 {
                     continue;
                 }
+            }
+
+            if (helpCalled > 4)
+            {
+                throw new ArgumentException("Help already revealed number, please start a new game and type command: restart");
             }
 
             string revieldNumber = new string(this.hintNumber);
